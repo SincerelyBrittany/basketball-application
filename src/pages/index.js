@@ -8,6 +8,7 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 
+
 export default function Home(props) {
   const [players, setPlayers] = useState([])
   const [teams, setTeams] = useState([])
@@ -83,7 +84,8 @@ export default function Home(props) {
     const divStyle = {
       backgroundImage: 'url(' + team.logo + ')'
     }
-    console.log(divStyle, "this is team yay")
+
+    let teamImage = team.logo
 
     return (<div
       key={player.pid}
@@ -91,14 +93,21 @@ export default function Home(props) {
     >
       <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <div class="md:flex">
-          <div class="md:w-2/3 bg-hero bg-no-repeat bg-cover bg-center bg-fixed" style={`${divStyle}`}>
-            <img class="h-48 w-full object-cover md:h-200 md:w-300" src='#' alt="placeholder image" />
+          {/* <div
+            style={{ 'var(--image-url)': teamImage }}
+            className='bg-[image:var(--image-url)]'> */}
+          <div class="md:w-2/3">
+            <img class="h-48 w-full object-cover md:h-200 md:w-300" src={player.headshot} alt="placeholder image" />
           </div>
-          <div class="p-8 md:w-2/3">
+          <div class="p-6 md:w-2/3">
+
+            <img src={teamImage} alt="..." class="shadow-lg rounded-full max-w-full h-auto align-middle border-none" />
+
+            {/* <img class="h-48 w-full object-cover md:h-200 md:w-300" src={teamImage} alt="placeholder image" /> */}
             <h2 class="text-2xl font-bold text-gray-800">Title Goes Here</h2>
             <p class="mt-2 text-gray-600"></p>
           </div>
-          <div style={divStyle} />
+          {/* </div> */}
         </div>
         <div class="mt-4 grid grid-cols-3 gap-4 text-center ">
           <div class="rounded-md p-2">
