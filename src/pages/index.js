@@ -31,10 +31,6 @@ export default function Home(props) {
       });
   }, []);
 
-  console.log(players, "players");
-
-  console.log(teams, "teams");
-
   if (isLoading) return <p>Loading...</p>
   if (!players) return <p>No player data</p>
   if (!teams) return <p>No team data</p>
@@ -64,6 +60,10 @@ export default function Home(props) {
               <span>{player.fn}</span> <br />
               <span>{player.ln}</span>
             </h5>
+            <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
             <div class="flex ...">
               <div class="grid grid-cols-3 gap-3">
                 <div class="grid-items">PPG {player.pts}</div>
@@ -74,6 +74,49 @@ export default function Home(props) {
           </div>
         </div> </div> </div> </div>
 
+    )
+  });
+
+  const DisplayData2 = players?.map((player) => {
+    // https://stackoverflow.com/questions/47923720/react-js-set-image-as-div-background-inside-map-function
+    let team = teams.find(team => player.ta === team.ta);
+    const divStyle = {
+      backgroundImage: 'url(' + team.logo + ')'
+    }
+    console.log(divStyle, "this is team yay")
+
+    return (<div
+      key={player.pid}
+      className="card"
+    >
+      <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+        <div class="md:flex">
+          <div class="md:w-2/3 bg-hero bg-no-repeat bg-cover bg-center bg-fixed" style={`${divStyle}`}>
+            <img class="h-48 w-full object-cover md:h-200 md:w-300" src='#' alt="placeholder image" />
+          </div>
+          <div class="p-8 md:w-2/3">
+            <h2 class="text-2xl font-bold text-gray-800">Title Goes Here</h2>
+            <p class="mt-2 text-gray-600"></p>
+          </div>
+          <div style={divStyle} />
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-4 text-center ">
+          <div class="rounded-md p-2">
+            <p>PPG </p>
+            <p>
+              {player.pts}
+            </p>
+          </div>
+          <div class=" rounded-md p-2">
+            <p>RPG </p>
+            <p>{player.reb}</p></div>
+          <div class=" rounded-md p-2">
+            <p>APG </p>
+            <p> {player.ast}</p>
+          </div>
+        </div>
+      </div>
+    </div>
     )
   });
 
@@ -88,7 +131,7 @@ export default function Home(props) {
           NBA App!
         </h1>
         <h1> {players.length}</h1>
-        <div class="p-10 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">{DisplayData}</div>;
+        <div class="p-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">{DisplayData2}</div>;
       </div>
     </div>
 
