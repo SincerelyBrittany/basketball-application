@@ -21,7 +21,7 @@ export default function Home(props) {
       fetch('/api/players'),
       fetch('/api/teams'),
     ])
-      .then(([resPlayers, resTeams]) => 
+      .then(([resPlayers, resTeams]) =>
         Promise.all([resPlayers.json(), resTeams.json()])
       )
       .then(([dataPlayers, dataTeams]) => {
@@ -32,88 +32,65 @@ export default function Home(props) {
   }, []);
 
   console.log(players, "players");
-  
-  console.log( teams, "teams");
+
+  console.log(teams, "teams");
 
   if (isLoading) return <p>Loading...</p>
   if (!players) return <p>No player data</p>
   if (!teams) return <p>No team data</p>
 
-// https://mono.software/2020/07/29/equal-height-cards-with-flexbox/
+
+
+  const DisplayData = players?.map((player) => {
+    return (<div className="card__wrap--inner"><div
+      key={player.pid}
+      className="card"
+    >
+      <div class="flex justify-center">
+        <div
+          class="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+          <a href="#!">
+
+            <img
+              class="rounded-t-lg"
+              src={player.headshot}
+              alt="" />
+          </a>
+          <div class="p-6">
+            <h5
+              class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+              <span className='player-num-and-pos'>{player.num} | {player.pos}</span>
+              <br />
+              <span>{player.fn}</span> <br />
+              <span>{player.ln}</span>
+            </h5>
+            <div class="flex ...">
+              <div class="grid grid-cols-3 gap-3">
+                <div class="grid-items">PPG {player.pts}</div>
+                <div class="grid-items"> RPG {player.reb}</div>
+                <div class="grid-items">APG {player.ast}</div>
+              </div>
+            </div>
+          </div>
+        </div> </div> </div> </div>
+
+    )
+  });
+
+  // https://mono.software/2020/07/29/equal-height-cards-with-flexbox/
   return (
     <div style={{ padding: 30 }}>
       <Head>
         <title>The NBA</title>
       </Head>
       <div>
-      <h1>NBA </h1>
-     <h1> {players.length}</h1>
-     <div className="card__wrap--outer">
-     <div class="card">
-                <div class="card__item">
-                    <h2>First Card Title</h2>
-                </div>
-								<div class="card__sub">
-										<small>New York</small>
-								</div>
-								<div class="card__item flexible">
-										<small>Vexillologist mustache heirloom plaid adaptogen subway tile. Biodiesel microdosing pinterest, cloud bread vice kickstarter pickled PBR&B. Prism palo santo craft beer cold-pressed, heirloom tofu snackwave fashion axe ramps iPhone.</small>
-								</div>
-								<div class="card__item">
-										<small>Reading Time: 4min</small>
-								</div>
-								<div class="card__footer">
-									<a class="pull" href="#"><small>Read more</small></a>
-									<a class="push" href="#"><small>Share</small></a>
-								</div>
-            </div>
-
-{
-      
-      players.map(player => {
-      return <div className="card__wrap--inner"><div
-       key={player.pid}
-       className="card"
-       >
-{/* 
-       {
-        //search for teams image
-        // https://stackoverflow.com/questions/8517089/js-search-in-object-values
- return teams.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)));
-} */}
-
-        <div clasName="img-div">
-        {/* <img className="half img-right" src={player.headshot}/>
-
-        <div className="half text-left">
-          <span className='player-num-and-pos'>{player.num} | {player.pos}</span>
-          <br />
-          <div>
-          <div class="card__item">
-          <span>{player.fn}</span>
-          <span>{player.ln}</span>
-                </div>
-         
-          </div> */}
-       {/* </div> */}
-       </div>
-  
-     
-       
-
-       <div class="grid-items-container card__item flexible">
-       <div class="grid-items">PPG {player.pts}</div>
-       <div class="grid-items"> RPG {player.reb}</div>
-       <div class="grid-items">APG {player.ast}</div>
-
-       {/* <p> PPT {player.pts}</p>
-       <p> RPG {player.reb}</p>
-       <p> APT{player.ast}</p> */}
-       </div>
-     </div></div>}
-     )}
+        <h1 className="text-3xl font-bold underline">
+          NBA App!
+        </h1>
+        <h1> {players.length}</h1>
+        <div class="p-10 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">{DisplayData}</div>;
+      </div>
     </div>
-    </div>
-    </div>
+
   )
 }
