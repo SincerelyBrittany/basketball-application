@@ -50,7 +50,7 @@ export default function Home(props) {
             <img class="h-48 w-full object-cover md:h-200 md:w-300" src={player.headshot} alt="placeholder image" />
           </div>
           <div class="p-6 md:w-2/3 text-center">
-            <img src={teamImage} alt="..." class="ml-20 object-right text-right shadow-lg rounded-full max-w-full h-10 align-middle border-none" />
+            <img src={teamImage} alt="team-image" class="ml-20 mb-4 shadow-lg rounded-full max-w-full h-10 align-middle border-none" />
             <p>#{player.num} | {player.pos} </p>
             <p>{player.fn} {player.ln}</p>
             <p class="mt-2 text-gray-600"></p>
