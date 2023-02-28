@@ -2,8 +2,12 @@ import { useState, useEffect } from 'react'
 import Pagination from "../components/Pagination";
 import { paginate } from "../helpers/paginate";
 
+
+import { getData } from './api/teams'
+
 export default function Teams(props) {
-    const teams = props.files[2].content
+    console.log("props", props)
+    const teams = []
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 5;
 
@@ -45,26 +49,46 @@ export default function Teams(props) {
         </div>);
 }
 
-import { promises as fs } from 'fs'
-import path from 'path'
 
 
-export async function getServerSideProps() {
-    const postsDirectory = path.join(process.cwd(), 'data')
-    const filenames = await fs.readdir(postsDirectory)
+// export async function getData() {
+//     // const response = await fetch('./api/teams')
+//     // const jsonData = await response.json()
+//     // return jsonData
+//     // fetch('http://localhost:3000/api/teams')
+//     //     .then((response) => response.json())
+//     //     .then((data) => { return data });
 
-    const posts = filenames.map(async (filename) => {
-        const filePath = path.join(postsDirectory, filename)
-        const fileContents = await fs.readFile(filePath, 'utf8')
-        const objectData = JSON.parse(fileContents);
-        return {
-            filename,
-            content: objectData,
-        }
-    })
+// }
+
+
+// https://stackoverflow.com/questions/74966208/next-js-typeerror-failed-to-parse-url-from-api-projects-or-error-connect-econ
+// https://egghead.io/lessons/react-fetch-data-from-an-api-on-the-server-side-with-getserversideprops-in-next-js
+// https://stackoverflow.com/questions/65752932/internal-api-fetch-with-getserversideprops-next-js
+export async function getServerSideProps(context) {
+    const jsonData = await getData()
     return {
-        props: {
-            files: await Promise.all(posts),
-        },
-    }
+        props: { teams: jsonData },
+    };
+
 }
+
+// export async function getServerSideProps() {
+//     const postsDirectory = path.join(process.cwd(), 'data')
+//     const filenames = await fs.readdir(postsDirectory)
+
+//     const posts = filenames.map(async (filename) => {
+//         const filePath = path.join(postsDirectory, filename)
+//         const fileContents = await fs.readFile(filePath, 'utf8')
+//         const objectData = JSON.parse(fileContents);
+//         return {
+//             filename,
+//             content: objectData,
+//         }
+//     })
+//     return {
+//         props: {
+//             files: await Promise.all(posts),
+//         },
+//     }
+// }
