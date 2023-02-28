@@ -1,16 +1,12 @@
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import { Inter } from 'next/font/google'
-// import styles from '@/styles/Home.module.css'
-
-// const inter = Inter({ subsets: ['latin'] })
-
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
-import PlayerCard from "../components/PlayerCard";
-import Pagination from "../components/Pagination";
-import { paginate } from "../helpers/paginate";
 import Link from 'next/link'
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+})
+
 
 export default function Home() {
 
@@ -22,19 +18,21 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline text-center">
         Welcome to the NBA App!
       </h1>
-      <div class="flex flex-row items-center justify-center mt-20 ">
+      <main className={roboto.className}>
+        <div class="flex flex-row items-center justify-center mt-20 " >
 
-        <div>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            <Link href="/teams">Teams</Link>
-          </button>
+          <div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white  text-lg font-bold py-2 px-4 rounded">
+              <Link href="/teams">Teams</Link>
+            </button>
+          </div>
+          <div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 rounded">
+              <Link href="/players">Players</Link>
+            </button>
+          </div>
         </div>
-        <div>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            <Link href="/players">Players</Link>
-          </button>
-        </div>
-      </div>
+      </main>
     </div>
   )
 }

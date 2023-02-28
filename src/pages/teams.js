@@ -4,6 +4,13 @@ import { paginate } from "../helpers/paginate";
 import Link from 'next/link'
 
 import { getData } from './api/teams'
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+    weight: '400',
+    subsets: ['latin'],
+})
+
 
 export default function Teams(props) {
     const teams = props.teams
@@ -23,7 +30,7 @@ export default function Teams(props) {
     }
 
     return (
-        <div>
+        <main className={roboto.className}>
             <h1 className="text-3xl font-bold underline text-center">
                 Teams
             </h1>
@@ -56,12 +63,14 @@ export default function Teams(props) {
                         pageSize={pageSize}
                         onPageChange={onPageChange}
                     />
+
                     <button className='text-center'>
                         <Link href="/">Back</Link>
                     </button>
                 </div>
             </div>
-        </div>);
+        </main>
+    );
 }
 
 // https://stackoverflow.com/questions/74966208/next-js-typeerror-failed-to-parse-url-from-api-projects-or-error-connect-econ

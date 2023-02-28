@@ -69,11 +69,13 @@ export default function Players(props) {
                     currentPage={currentPage}
                     pageSize={pageSize}
                     onPageChange={onPageChange}
-                /> </div>
+                />
 
-                <button className='text-center'>
-                    <Link href="/">Back</Link>
-                </button>
+                    <button className='text-center button mt-5 h-10 px-5 text-gray-100 transition-colors duration-150 bg-gray-700 rounded-lg focus:shadow-outline hover:bg-gray-80'>
+                        <Link href="/">Back</Link>
+                    </button>
+                </div>
+
 
 
             </div>
