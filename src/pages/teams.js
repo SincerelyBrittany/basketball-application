@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Pagination from "../component/Pagination";
+import Pagination from "../components/Pagination";
 import { paginate } from "../helpers/paginate";
 
 export default function Teams(props) {
@@ -37,9 +37,9 @@ export default function Teams(props) {
             </table>
 
             <Pagination
-                items={teams.length} 
+                items={teams.length}
                 currentPage={currentPage}
-                pageSize={pageSize} 
+                pageSize={pageSize}
                 onPageChange={onPageChange}
             />
         </div>);

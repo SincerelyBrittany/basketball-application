@@ -7,11 +7,22 @@
 
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
+import Pagination from "../components/Pagination";
+import { paginate } from "../helpers/paginate";
 
 export default function Home(props) {
   const [players, setPlayers] = useState([])
   const [teams, setTeams] = useState([])
   const [isLoading, setLoading] = useState(false)
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 30;
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedPlayers = paginate(players, currentPage, pageSize);
 
   useEffect(() => {
     // https://nextjs.org/docs/basic-features/data-fetching/client-side
@@ -35,7 +46,7 @@ export default function Home(props) {
   if (!players) return <p>No player data</p>
   if (!teams) return <p>No team data</p>
 
-  const DisplayData = players?.map((player) => {
+  const DisplayData = paginatedPlayers?.map((player) => {
     // https://stackoverflow.com/questions/47923720/react-js-set-image-as-div-background-inside-map-function
     let team = teams.find(team => player.ta === team.ta);
     let teamImage = team.logo
@@ -87,7 +98,15 @@ export default function Home(props) {
           NBA App!
         </h1>
         <h2 class='text-center'> Total Players: {players.length}</h2>
-        <div class="p-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">{DisplayData}</div>;
+        <div class="p-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
+          {DisplayData}
+          <Pagination
+            items={players.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={onPageChange}
+          />
+        </div>
       </div>
     </div>
 
