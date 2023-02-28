@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Pagination from "../components/Pagination";
 import { paginate } from "../helpers/paginate";
+import Link from 'next/link'
 
 import { getData } from './api/teams'
 
@@ -15,35 +16,51 @@ export default function Teams(props) {
 
     const paginatedPosts = paginate(teams, currentPage, pageSize);
 
+    const colorPicker = (color) => {
+        // console.log(color, "this is color")
+        // console.log(`bg-[` + color + `]`, "this is the color")
+        return "bg-[" + color + "]"
+    }
+
     return (
         <div>
-            <h1> Teams </h1>
-            <table class="table-fixed border-separate border-spacing-2 border border-slate-400 ">
-                <thead>
-                    <tr>
-                        <th>TA</th>
-                        <th>City</th>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                {paginatedPosts.map(team =>
-                    <tbody>
-                        <tr key={team.pid}>
-                            <td>{team.ta}</td>
-                            <td>{team.city}</td>
-                            <td>{team.name}</td>
-                            <td> <img src={team.logo} alt="..." class="ml-20 object-right text-right shadow-lg rounded-full max-w-full h-10 align-middle border-none" /></td>
+            <h1 className="text-3xl font-bold underline text-center">
+                Teams
+            </h1>
+            <div class="flex items-center justify-center h-screen">
+                <table class=" border-separate border-spacing-2 border border-slate-400 ">
+                    <thead>
+                        <tr>
+                            <th>TA</th>
+                            <th>City</th>
+                            <th>Name</th>
                         </tr>
-                    </tbody>
-                )}
-            </table>
+                    </thead>
+                    {paginatedPosts.map(team =>
+                        <tbody >
+                            <tr key={team.pid} className={colorPicker(team.color)}>
+                                <td>{team.ta}</td>
+                                <td>{team.city}</td>
+                                <td>{team.name}</td>
+                                <td> <img src={team.logo} alt="..." class="margin: 0 auto shadow-lg rounded-full max-w-full h-10 align-middle border-none" /></td>
+                            </tr>
+                        </tbody>
+                    )}
+                </table>
 
-            <Pagination
-                items={teams.length}
-                currentPage={currentPage}
-                pageSize={pageSize}
-                onPageChange={onPageChange}
-            />
+
+                <div class="fixed inset-x-0 bottom-0 text-center mb-10">
+                    <Pagination
+                        items={teams.length}
+                        currentPage={currentPage}
+                        pageSize={pageSize}
+                        onPageChange={onPageChange}
+                    />
+                    <button className='text-center'>
+                        <Link href="/">Back</Link>
+                    </button>
+                </div>
+            </div>
         </div>);
 }
 

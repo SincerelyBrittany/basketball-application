@@ -10,75 +10,31 @@ import { useState, useEffect } from 'react'
 import PlayerCard from "../components/PlayerCard";
 import Pagination from "../components/Pagination";
 import { paginate } from "../helpers/paginate";
+import Link from 'next/link'
 
-export default function Home(props) {
-  const [players, setPlayers] = useState([])
-  const [teams, setTeams] = useState([])
-  const [isLoading, setLoading] = useState(false)
+export default function Home() {
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 30;
-
-  const onPageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const paginatedPlayers = paginate(players, currentPage, pageSize);
-
-  useEffect(() => {
-    // https://nextjs.org/docs/basic-features/data-fetching/client-side
-    // https://medium.com/@jdhawks/make-fetch-s-happen-5022fcc2ddae
-    setLoading(true)
-    Promise.all([
-      fetch('/api/players'),
-      fetch('/api/teams'),
-    ])
-      .then(([resPlayers, resTeams]) =>
-        Promise.all([resPlayers.json(), resTeams.json()])
-      )
-      .then(([dataPlayers, dataTeams]) => {
-        setPlayers(dataPlayers);
-        setTeams(dataTeams);
-        setLoading(false)
-      });
-  }, []);
-
-  if (isLoading) return <p>Loading...</p>
-  if (!players) return <p>No player data</p>
-  if (!teams) return <p>No team data</p>
-
-  const DisplayData = paginatedPlayers?.map((player) => {
-    // https://stackoverflow.com/questions/47923720/react-js-set-image-as-div-background-inside-map-function
-    let team = teams.find(team => player.ta === team.ta);
-    let teamImage = team.logo
-
-    return (
-      <PlayerCard player={player} team={team} />
-    )
-  });
-
-  // https://mono.software/2020/07/29/equal-height-cards-with-flexbox/
   return (
     <div style={{ padding: 30 }}>
       <Head>
         <title>The NBA</title>
       </Head>
-      <div>
-        <h1 className="text-3xl font-bold underline text-center">
-          NBA App!
-        </h1>
-        <h2 class='text-center'> Total Players: {players.length}</h2>
-        <div class="p-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
-          {DisplayData}
-          <Pagination
-            items={players.length}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            onPageChange={onPageChange}
-          />
+      <h1 className="text-3xl font-bold underline text-center">
+        Welcome to the NBA App!
+      </h1>
+      <div class="flex flex-row items-center justify-center mt-20 ">
+
+        <div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <Link href="/teams">Teams</Link>
+          </button>
+        </div>
+        <div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <Link href="/players">Players</Link>
+          </button>
         </div>
       </div>
     </div>
-
   )
 }
