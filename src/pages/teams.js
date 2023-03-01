@@ -24,8 +24,6 @@ export default function Teams(props) {
     const paginatedPosts = paginate(teams, currentPage, pageSize);
 
     const colorPicker = (color) => {
-        // console.log(color, "this is color")
-        // console.log(`bg-[` + color + `]`, "this is the color")
         return "bg-[" + color + "]"
     }
 
