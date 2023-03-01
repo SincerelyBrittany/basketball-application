@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Roboto } from 'next/font/google'
-import Image from 'next/image'
+import styles from '@/styles/Home.module.css'
+
 
 const roboto = Roboto({
   weight: '400',
@@ -16,7 +17,7 @@ export default function Home() {
       <Head>
         <title>The NBA</title>
       </Head>
-      <main className={roboto.className} id="__next">
+      <main className={roboto.className} id={styles.__next}>
         <div class="flex flex-col justify-center items-center h-screen">
           <h1 class="text-3xl font-bold text-center mb-8">Welcome to the NBA App</h1>
           <div class="flex flex-row justify-center items-center">
