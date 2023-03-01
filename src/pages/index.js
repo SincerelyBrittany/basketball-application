@@ -29,29 +29,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-
-
-        {/* <div class="flex flex-row justify-center items-center h-screen">
-          <button class="bg-orange-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg mb-20 sm:mb-0 sm:mr-4 sm:w-1/2 lg:w-1/3">
-            <Link href="/teams">Teams</Link>
-          </button>
-          <button class="bg-orange-500 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-lg sm:w-1/2 lg:w-1/3">
-            <Link href="/players">Players</Link>
-          </button>
-        </div> */}
-
-        {/* <div class="flex flex-row items-center justify-center mt-20 " >
-          <div>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white  text-lg font-bold py-2 px-4 rounded">
-              <Link href="/teams">Teams</Link>
-            </button>
-          </div>
-          <div>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 rounded">
-              <Link href="/players">Players</Link>
-            </button>
-          </div>
-        </div> */}
       </main>
     </div>
   )
